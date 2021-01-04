@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="yyyq.auth.mapper.AccountMapper">
+  <resultMap id="BaseResultMap" type="yyyq.auth.entity.Account">
+    <id column="acctID" jdbcType="BIGINT" property="acctid" />
+    <result column="portrait" jdbcType="VARCHAR" property="portrait" />
+    <result column="acctType" jdbcType="TINYINT" property="accttype" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="telPrefix" jdbcType="CHAR" property="telprefix" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="acctCode" jdbcType="VARCHAR" property="acctcode" />
+    <result column="rank" jdbcType="TINYINT" property="rank" />
+    <result column="rankValue" jdbcType="INTEGER" property="rankvalue" />
+    <result column="rankValidUntil" jdbcType="TIMESTAMP" property="rankvaliduntil" />
+    <result column="vipGrade" jdbcType="TINYINT" property="vipgrade" />
+    <result column="acctPwd" jdbcType="VARCHAR" property="acctpwd" />
+    <result column="txPwd" jdbcType="VARCHAR" property="txpwd" />
+    <result column="channel" jdbcType="VARCHAR" property="channel" />
+    <result column="referralAcctID" jdbcType="BIGINT" property="referralacctid" />
+    <result column="parentAcctID" jdbcType="BIGINT" property="parentacctid" />
+    <result column="level" jdbcType="INTEGER" property="level" />
+    <result column="credit" jdbcType="TINYINT" property="credit" />
+    <result column="registerDate" jdbcType="TIMESTAMP" property="registerdate" />
+    <result column="status" jdbcType="SMALLINT" property="status" />
+    <result column="realNameApproved" jdbcType="BIT" property="realnameapproved" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    acctID, portrait, acctType, nickName, telPrefix, mobile, email, acctCode, rank, rankValue, 
+    rankValidUntil, vipGrade, acctPwd, txPwd, channel, referralAcctID, parentAcctID, 
+    level, credit, registerDate, status, realNameApproved
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from account
+    where acctID = #{acctid,jdbcType=BIGINT}
+  </select>
+  <select id="selectByMobile" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from account
+    where mobile = #{mobile,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from account
+    where acctID = #{acctid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="yyyq.auth.entity.Account">
+    insert into account (acctID, portrait, acctType, 
+      nickName, telPrefix, mobile, 
+      email, acctCode, rank, 
+      rankValue, rankValidUntil, vipGrade, 
+      acctPwd, txPwd, channel, 
+      referralAcctID, parentAcctID, level, 
+      credit, registerDate, status, 
+      realNameApproved)
+    values (#{acctid,jdbcType=BIGINT}, #{portrait,jdbcType=VARCHAR}, #{accttype,jdbcType=TINYINT}, 
+      #{nickname,jdbcType=VARCHAR}, #{telprefix,jdbcType=CHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{acctcode,jdbcType=VARCHAR}, #{rank,jdbcType=TINYINT}, 
+      #{rankvalue,jdbcType=INTEGER}, #{rankvaliduntil,jdbcType=TIMESTAMP}, #{vipgrade,jdbcType=TINYINT}, 
+      #{acctpwd,jdbcType=VARCHAR}, #{txpwd,jdbcType=VARCHAR}, #{channel,jdbcType=VARCHAR}, 
+      #{referralacctid,jdbcType=BIGINT}, #{parentacctid,jdbcType=BIGINT}, #{level,jdbcType=INTEGER}, 
+      #{credit,jdbcType=TINYINT}, #{registerdate,jdbcType=TIMESTAMP}, #{status,jdbcType=SMALLINT}, 
+      #{realnameapproved,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="yyyq.auth.entity.Account">
+    insert into account
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="acctid != null">
+        acctID,
+      </if>
+      <if test="portrait != null">
+        portrait,
+      </if>
+      <if test="accttype != null">
+        acctType,
+      </if>
+      <if test="nickname != null">
+        nickName,
+      </if>
+      <if test="telprefix != null">
+        telPrefix,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="acctcode != null">
+        acctCode,
+      </if>
+      <if test="rank != null">
+        rank,
+      </if>
+      <if test="rankvalue != null">
+        rankValue,
+      </if>
+      <if test="rankvaliduntil != null">
+        rankValidUntil,
+      </if>
+      <if test="vipgrade != null">
+        vipGrade,
+      </if>
+      <if test="acctpwd != null">
+        acctPwd,
+      </if>
+      <if test="txpwd != null">
+        txPwd,
+      </if>
+      <if test="channel != null">
+        channel,
+      </if>
+      <if test="referralacctid != null">
+        referralAcctID,
+      </if>
+      <if test="parentacctid != null">
+        parentAcctID,
+      </if>
+      <if test="level != null">
+        level,
+      </if>
+      <if test="credit != null">
+        credit,
+      </if>
+      <if test="registerdate != null">
+        registerDate,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="realnameapproved != null">
+        realNameApproved,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="acctid != null">
+        #{acctid,jdbcType=BIGINT},
+      </if>
+      <if test="portrait != null">
+        #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="accttype != null">
+        #{accttype,jdbcType=TINYINT},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="telprefix != null">
+        #{telprefix,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="acctcode != null">
+        #{acctcode,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="rankvalue != null">
+        #{rankvalue,jdbcType=INTEGER},
+      </if>
+      <if test="rankvaliduntil != null">
+        #{rankvaliduntil,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vipgrade != null">
+        #{vipgrade,jdbcType=TINYINT},
+      </if>
+      <if test="acctpwd != null">
+        #{acctpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="txpwd != null">
+        #{txpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="referralacctid != null">
+        #{referralacctid,jdbcType=BIGINT},
+      </if>
+      <if test="parentacctid != null">
+        #{parentacctid,jdbcType=BIGINT},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=INTEGER},
+      </if>
+      <if test="credit != null">
+        #{credit,jdbcType=TINYINT},
+      </if>
+      <if test="registerdate != null">
+        #{registerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="realnameapproved != null">
+        #{realnameapproved,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="yyyq.auth.entity.Account">
+    update account
+    <set>
+      <if test="portrait != null">
+        portrait = #{portrait,jdbcType=VARCHAR},
+      </if>
+      <if test="accttype != null">
+        acctType = #{accttype,jdbcType=TINYINT},
+      </if>
+      <if test="nickname != null">
+        nickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="telprefix != null">
+        telPrefix = #{telprefix,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="acctcode != null">
+        acctCode = #{acctcode,jdbcType=VARCHAR},
+      </if>
+      <if test="rank != null">
+        rank = #{rank,jdbcType=TINYINT},
+      </if>
+      <if test="rankvalue != null">
+        rankValue = #{rankvalue,jdbcType=INTEGER},
+      </if>
+      <if test="rankvaliduntil != null">
+        rankValidUntil = #{rankvaliduntil,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vipgrade != null">
+        vipGrade = #{vipgrade,jdbcType=TINYINT},
+      </if>
+      <if test="acctpwd != null">
+        acctPwd = #{acctpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="txpwd != null">
+        txPwd = #{txpwd,jdbcType=VARCHAR},
+      </if>
+      <if test="channel != null">
+        channel = #{channel,jdbcType=VARCHAR},
+      </if>
+      <if test="referralacctid != null">
+        referralAcctID = #{referralacctid,jdbcType=BIGINT},
+      </if>
+      <if test="parentacctid != null">
+        parentAcctID = #{parentacctid,jdbcType=BIGINT},
+      </if>
+      <if test="level != null">
+        level = #{level,jdbcType=INTEGER},
+      </if>
+      <if test="credit != null">
+        credit = #{credit,jdbcType=TINYINT},
+      </if>
+      <if test="registerdate != null">
+        registerDate = #{registerdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+      <if test="realnameapproved != null">
+        realNameApproved = #{realnameapproved,jdbcType=BIT},
+      </if>
+    </set>
+    where acctID = #{acctid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="yyyq.auth.entity.Account">
+    update account
+    set portrait = #{portrait,jdbcType=VARCHAR},
+      acctType = #{accttype,jdbcType=TINYINT},
+      nickName = #{nickname,jdbcType=VARCHAR},
+      telPrefix = #{telprefix,jdbcType=CHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      acctCode = #{acctcode,jdbcType=VARCHAR},
+      rank = #{rank,jdbcType=TINYINT},
+      rankValue = #{rankvalue,jdbcType=INTEGER},
+      rankValidUntil = #{rankvaliduntil,jdbcType=TIMESTAMP},
+      vipGrade = #{vipgrade,jdbcType=TINYINT},
+      acctPwd = #{acctpwd,jdbcType=VARCHAR},
+      txPwd = #{txpwd,jdbcType=VARCHAR},
+      channel = #{channel,jdbcType=VARCHAR},
+      referralAcctID = #{referralacctid,jdbcType=BIGINT},
+      parentAcctID = #{parentacctid,jdbcType=BIGINT},
+      level = #{level,jdbcType=INTEGER},
+      credit = #{credit,jdbcType=TINYINT},
+      registerDate = #{registerdate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=SMALLINT},
+      realNameApproved = #{realnameapproved,jdbcType=BIT}
+    where acctID = #{acctid,jdbcType=BIGINT}
+  </update>
+</mapper>

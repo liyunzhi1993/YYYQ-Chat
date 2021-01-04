@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="yyyq.auth.mapper.FriendMapper" >
+  <resultMap id="BaseResultMap" type="yyyq.auth.entity.Friend" >
+    <id column="acctID" property="acctid" jdbcType="BIGINT" />
+    <id column="friendID" property="friendid" jdbcType="BIGINT" />
+    <result column="friendGroup" property="friendgroup" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    acctID, friendID, friendGroup, status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="yyyq.auth.entity.FriendKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from friend
+    where acctID = #{acctid,jdbcType=BIGINT}
+      and friendID = #{friendid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="yyyq.auth.entity.FriendKey" >
+    delete from friend
+    where acctID = #{acctid,jdbcType=BIGINT}
+      and friendID = #{friendid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="yyyq.auth.entity.Friend" >
+    insert into friend (acctID, friendID, friendGroup, 
+      status)
+    values (#{acctid,jdbcType=BIGINT}, #{friendid,jdbcType=BIGINT}, #{friendgroup,jdbcType=VARCHAR}, 
+      #{status,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="yyyq.auth.entity.Friend" >
+    insert into friend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="acctid != null" >
+        acctID,
+      </if>
+      <if test="friendid != null" >
+        friendID,
+      </if>
+      <if test="friendgroup != null" >
+        friendGroup,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="acctid != null" >
+        #{acctid,jdbcType=BIGINT},
+      </if>
+      <if test="friendid != null" >
+        #{friendid,jdbcType=BIGINT},
+      </if>
+      <if test="friendgroup != null" >
+        #{friendgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="yyyq.auth.entity.Friend" >
+    update friend
+    <set >
+      <if test="friendgroup != null" >
+        friendGroup = #{friendgroup,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where acctID = #{acctid,jdbcType=BIGINT}
+      and friendID = #{friendid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="yyyq.auth.entity.Friend" >
+    update friend
+    set friendGroup = #{friendgroup,jdbcType=VARCHAR},
+      status = #{status,jdbcType=SMALLINT}
+    where acctID = #{acctid,jdbcType=BIGINT}
+      and friendID = #{friendid,jdbcType=BIGINT}
+  </update>
+</mapper>
