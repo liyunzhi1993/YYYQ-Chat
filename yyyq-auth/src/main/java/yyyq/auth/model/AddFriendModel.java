@@ -3,11 +3,9 @@ package yyyq.auth.model;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 public class AddFriendModel {
-    @Getter
-    @Setter
     public Long acctID;
-    @Getter
-    @Setter
     public String friendID;
 }

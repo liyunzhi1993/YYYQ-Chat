@@ -60,7 +60,7 @@ public class AccessFilter extends ZuulFilter {
 
             try {
                 AccountModel accountModel = authClient.token(token).data;
-                ctx.addZuulRequestHeader("accountModel", JSON.toJSONString(accountModel));
+                ctx.addZuulRequestHeader("acctID", String.valueOf(accountModel.acctId));
             }catch (Exception ex)
             {
                 ctx.setSendZuulResponse(false);

@@ -130,7 +130,10 @@ public class AccountServiceImpl implements AccountService {
         }
         if(editProfileModel.imageFile!=null)
         {
-            return tencentClientService.uploadImage(UUID.randomUUID().toString()+editProfileModel.fileName.replace("?",""),editProfileModel.imageFile);
+            String avatarUrl= tencentClientService.uploadImage(UUID.randomUUID().toString()+editProfileModel.fileName.replace("?",""),editProfileModel.imageFile);
+            account.portrait=avatarUrl;
+            accountMapper.updateByPrimaryKeySelective(account);
+            return avatarUrl;
         }
         return "";
     }

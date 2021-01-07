@@ -21,7 +21,7 @@ import javax.sql.DataSource;
 
 @SpringBootApplication(scanBasePackages = "yyyq")
 @EnableEurekaClient
-public class YYYQFFXIVApplication {
+public class YYYQChatApplication {
 
     @Value("${spring.datasource.url}")
     private String dbUrl;
@@ -48,7 +48,7 @@ public class YYYQFFXIVApplication {
     private String driverClassName;
 
     public static void main(String[] args) {
-        SpringApplication.run(YYYQFFXIVApplication.class, args);
+        SpringApplication.run(YYYQChatApplication.class, args);
     }
 
     @Bean

@@ -59,12 +59,11 @@ public class AccountController extends BaseController {
     }
 
     @PostMapping("/addFriend")
-        public ActionResultModel<String> addFriend(@RequestParam String friendID) {
+        public ActionResultModel<String> addFriend(@RequestHeader Long acctID,@RequestParam String friendID) {
         ActionResultModel<String> actionResultModel = new ActionResultModel<>();
         try {
-            Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             AddFriendModel addFriendModel=new AddFriendModel();
-            addFriendModel.acctID=account.acctid;
+            addFriendModel.acctID=acctID;
             addFriendModel.friendID=friendID;
             actionResultModel.setActionResult(accountService.addFriend(addFriendModel));
         } catch (CustomException ex) {
@@ -74,11 +73,10 @@ public class AccountController extends BaseController {
     }
 
     @PostMapping("editProfile")
-    public ActionResultModel<String> editProfile(@RequestBody EditProfileModel editProfileModel) {
+    public ActionResultModel<String> editProfile(@RequestHeader Long acctID,@RequestBody EditProfileModel editProfileModel) {
         ActionResultModel<String> actionResultModel = new ActionResultModel<>();
         try {
-            Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            editProfileModel.acctid = account.acctid;
+            editProfileModel.acctid = acctID;
             actionResultModel.setActionResult(accountService.editProfile(editProfileModel));
         } catch (CustomException ex) {
             actionResultModel.setHasErrorMessage(ex.getMessage());
@@ -86,17 +84,16 @@ public class AccountController extends BaseController {
         return actionResultModel;
     }
 
-    @PostMapping("editAvtar")
-    public ActionResultModel<String> editProfile(@RequestParam("file") MultipartFile file) {
+    @PostMapping("editAvatar")
+    public ActionResultModel<String> editProfile(@RequestHeader Long acctID,@RequestParam("file") MultipartFile file) {
         ActionResultModel<String> actionResultModel = new ActionResultModel<>();
         try {
             EditProfileModel editProfileModel=new EditProfileModel();
-            Account account = (Account) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             if(!file.isEmpty()) {
                 editProfileModel.fileName = file.getOriginalFilename();
                 editProfileModel.imageFile = file.getBytes();
             }
-            editProfileModel.acctid = account.acctid;
+            editProfileModel.acctid = acctID;
             actionResultModel.setActionResult(accountService.editProfile(editProfileModel));
         } catch (CustomException | IOException ex) {
             actionResultModel.setHasErrorMessage(ex.getMessage());
